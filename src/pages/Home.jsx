@@ -9,12 +9,16 @@ const Home = ({ loginState, setLoginState }) => {
   useEffect(() => {
     const check_login = async (email) => {
       if (email) {
-        const resp = await axios.post(`https://gmail-authentication.vercel.app/login?email=${email}`);
-        if (resp) {
-          setLoginState(true);
-          return;
+        try {
+          const resp = await axios.post(`https://gmail-authentication.vercel.app/login?email=${email}`);
+          if (resp) {
+            setLoginState(true);
+            return;
+          }
+          setLoginState(false);
+        } catch (err) {
+          console.log(err)
         }
-        setLoginState(false);
       }
     }
 
